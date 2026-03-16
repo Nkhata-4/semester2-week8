@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include "points.h"
+#include <math.h>
 
 int main( void ) {
 
@@ -19,5 +20,7 @@ int main( void ) {
 
 float distance( Point p, Point q ) {
     // implement distance here
-    return 0.0;
+    x1 = Point
+    distance = sqrt((x2-x1)^2 + (y2-y1)^2)
+    return distance;
 }
