@@ -14,76 +14,46 @@ Point makePoint( float x, float y ) {
 
 Line makeLine( Point p1, Point p2 ) {
     Line newLine;
-    newLine.p1=(x, y);
-    newLine.p2=(x, y);
+    newLine.l[0]=p1;
+    newLine.l[1]=p2;
     return newLine;
 }
 
 Triangle makeTriangle( Point p1, Point p2, Point p3 ) {
     Triangle newTriangle;
-    newTriangle.p=p1;
-    newTriangle.p=p2;
-    newTriangle.p=p3;
+    newTriangle.t[0]=p1;
+    newTriangle.t[1]=p2;
+    newTriangle.t[2]=p3;
     return newTriangle;
 }
 
 float lineLength( Line l) {
-    point1=l.p1;
-    point2=l.p2;
-    
-    int exp = 2; 
-    float sub_x = point2.x - point1.x;
-    float sub_y = point2.y - point1.y;
+    float sub_x = l.p[1].x - l.p[0].x;
+    float sub_y = l.p[1].y - l.p[0].y;
     float lineLength = hypot(sub_x, sub_y);
     return lineLength;
 }
 
 float triangleArea ( Triangle t) {
-    Point p1=t.p1;
-    Point p2=t.p2;
-    Point p3=t.p3;
-    float dist_1 = lineLength(p1, p2);
-    float dist_2 = lineLength(p2, p3);
-    float dist_3 = lineLength(p1, p3);
+    float dist_1 = lineLength(t.p[0], t.p[1]);
+    float dist_2 = lineLength(t.p[1], t.p[2]);
+    float dist_3 = lineLength(t.p[0], t.p[2]);
     float semi_p = 0.5 * (dist_1 + dist_2 + dist_3)
-    float prod = (s-dist_1)(semi_p-dist_2)(semi_p-dist_3); 
+    float prod = (semi_p-dist_1)(semi_p-dist_2)(semi_p-dist_3); 
     float area = sqrt(semi_p * prod);
     return area;
 }
 
 bool samePoint( Point p1, Point p2 ) {
-    if (abs(lineLength(p1,p2))<1.0e-6) {
-        return true;
-    } else {
-        return false;
-    }
+    return fabs(p1.x - p2.x) < 1.0e-6 && fabs(p1.y - p2.y) < 1.0e-6;
 }
 
 bool pointInLine( Point p, Line l) {
-    p1=l.p1;
-    p2=l.p2;
-    if(abs(lineLength(p1,p))<1.0e-6) {
-        return true;
-    } else if (abs(lineLength(p,p2))<1.0e-6) {
-        return true;
-    } else {
-        return false;
-    }
+    return samePoint(p, l.p[0]) || samePoint(p, l.p[1]);
 }
 
 bool pointInTriangle( Point p, Triangle t) {
-    p1=t.p1;
-    p2=t.p2;
-    p3=t.p3;
-    if(abs(lineLength(p1,p))<1.0e-6) {
-        return true;
-    } else if (abs(lineLength(p,p2))<1.0e-6) {
-        return true;
-    } else if (abs(lineLength(p,p3))<1.0e-6) {
-        return true;
-    } else {
-        return false;
-    }
+    return samePoint(p, t.p[0]) || samePoint (p, t.p[1]) || samePoint(p, t.p[2]);
 }
 // complete other functions below
 // - start with stubs as above
