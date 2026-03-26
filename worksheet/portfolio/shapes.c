@@ -5,26 +5,26 @@
 #include "shapes.h"
 
 Point makePoint( float x, float y ) {
-    Point new;
-    new.x=x;
-    new.y=y;
+    Point p;
+    p.x=x;
+    p.y=y;
     // implementation
-    return new;
+    return p;
 }
 
 Line makeLine( Point p1, Point p2 ) {
-    Line newLine;
-    newLine.l[0]=p1;
-    newLine.l[1]=p2;
-    return newLine;
+    Line l;
+    l.p[0]=p1;
+    l.p[1]=p2;
+    return l;
 }
 
 Triangle makeTriangle( Point p1, Point p2, Point p3 ) {
-    Triangle newTriangle;
-    newTriangle.t[0]=p1;
-    newTriangle.t[1]=p2;
-    newTriangle.t[2]=p3;
-    return newTriangle;
+    Triangle t;
+    t.p[0]=p1;
+    t.p[1]=p2;
+    t.p[2]=p3;
+    return t;
 }
 
 float lineLength( Line l) {
@@ -35,25 +35,42 @@ float lineLength( Line l) {
 }
 
 float triangleArea ( Triangle t) {
-    float dist_1 = lineLength(t.p[0], t.p[1]);
-    float dist_2 = lineLength(t.p[1], t.p[2]);
-    float dist_3 = lineLength(t.p[0], t.p[2]);
-    float semi_p = 0.5 * (dist_1 + dist_2 + dist_3)
-    float prod = (semi_p-dist_1)(semi_p-dist_2)(semi_p-dist_3); 
-    float area = sqrt(semi_p * prod);
+    float x1 = t.p[0].x; 
+    float x2 = t.p[1].x;
+    float x3 = t.p[2].x;
+    float y1 = t.p[0].y;
+    float y2 = t.p[1].y;
+    float y3 = t.p[2].y;
+    
+    float sub1 = y1 - y2;
+    float sub2 = y2 - y3;
+    float sub3 = y1 - y3;
+    float area = fabs(x1 * sub2 + x2 * sub3 + x3 * sub1);
     return area;
 }
 
 bool samePoint( Point p1, Point p2 ) {
-    return fabs(p1.x - p2.x) < 1.0e-6 && fabs(p1.y - p2.y) < 1.0e-6;
+    if (fabs(p1.x - p2.x) < 1.0e-6 && fabs(p1.y - p2.y) < 1.0e-6) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool pointInLine( Point p, Line l) {
-    return samePoint(p, l.p[0]) || samePoint(p, l.p[1]);
+    if (samePoint(p, l.p[0]) || samePoint(p, l.p[1])) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool pointInTriangle( Point p, Triangle t) {
-    return samePoint(p, t.p[0]) || samePoint (p, t.p[1]) || samePoint(p, t.p[2]);
+    if (samePoint(p, t.p[0]) || samePoint (p, t.p[1]) || samePoint(p, t.p[2])) {
+        return true;
+    } else {
+        return false;
+    }
 }
 // complete other functions below
 // - start with stubs as above
