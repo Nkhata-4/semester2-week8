@@ -45,7 +45,7 @@ float triangleArea ( Triangle t) {
     float sub1 = y1 - y2;
     float sub2 = y2 - y3;
     float sub3 = y1 - y3;
-    float area = fabs(x1 * sub2 + x2 * sub3 + x3 * sub1);
+    float area = fabs(x1 * sub2 + x2 * sub3 + x3 * sub1) / 2;
     return area;
 }
 
